@@ -14,7 +14,7 @@ export class App extends Component {
 
     this.addTask = this.addTask.bind(this)
     this.deleteTask = this.deleteTask.bind(this)
-    this.changeTask = this.changeTask.bind(this)
+    // this.changeTask = this.changeTask.bind(this)
   }
 
   addTask(description, status) {
@@ -27,21 +27,17 @@ export class App extends Component {
   }
 
   
-  deleteTask(taskToBoDeleted) {
-    const deletedTask = this.state.tasks.filter(task =>{
-      return task !== taskToBoDeleted
-    })
-
-    this.setState({tasks: deletedTask})
+  deleteTask(index) {
+    const filteredTask = this.state.tasks.filter((task, i) => i !== index)
+    console.log(filteredTask)
+    this.setState({tasks: filteredTask})
   }
 
-  changeTask(taskToBoDeleted) {
-    const deletedTask = this.state.tasks.filter(task =>{
-      return task !== taskToBoDeleted
-    })
+  // changeTask(index) {
+  //   const filteredTask = this.state.tasks.filter((task, i) => i === index)
 
-    this.setState({tasks: deletedTask})
-  }
+  //   this.setState({tasks: filteredTask})
+  // }
 
   render() {
     return (
@@ -52,7 +48,8 @@ export class App extends Component {
             />
             <List 
               tasks={this.state.tasks}
-              onClick={this.deleteTask}
+              deleteTask={this.deleteTask}
+              onChangeClick={this.changeTask}
             />
       </div>
     )
