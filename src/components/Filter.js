@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 class Filter extends Component {
     render() {
         const { setFilter } = this.props
+
         return (
             <div className='row'>
                 <h3>Filter</h3>

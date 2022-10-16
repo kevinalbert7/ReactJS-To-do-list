@@ -20,7 +20,7 @@ export class List extends Component {
     this.reset = this.reset.bind(this)
   }
 
-  setEditIndex(index) {
+  setEditIndex(index) {   
     this.setState({
       editIndex: index,
       editDescription: this.props.tasks[index].description,

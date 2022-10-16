@@ -14,9 +14,9 @@ class EditTaskForm extends Component {
             <form className='row py-2' onSubmit={handleSubmit}>
                 <div className='col-6 d-flex align-items-center'>
                     <input 
-                    type='text' 
-                    value={editDescription} 
-                    onChange={handleDescriptionChange}
+                        type='text' 
+                        value={editDescription} 
+                        onChange={handleDescriptionChange}
                     />
                 </div>
 
