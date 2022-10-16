@@ -9,35 +9,52 @@ export class App extends Component {
     super()
 
     this.state = {
-      tasks: []
+      tasks : [
+        {
+          description: "faire les courses",
+          status: "To do"
+        },
+        {
+          description: "préparer le repas",
+          status: "To do"
+        },
+        {
+          description: "arroser les plantes",
+          status: "To do"
+        }
+      ]
     }
 
     this.addTask = this.addTask.bind(this)
     this.deleteTask = this.deleteTask.bind(this)
-    // this.changeTask = this.changeTask.bind(this)
+    this.modifyTask = this.modifyTask.bind(this)
   }
 
   addTask(description, status) {
     const newTask = {
       description: description,
-      status: "To do"
+      status: status
     }
 
-    this.setState({tasks: [...this.state.tasks, newTask]})
+    this.setState({ tasks: [...this.state.tasks, newTask] })
   }
 
   
   deleteTask(index) {
     const filteredTask = this.state.tasks.filter((task, i) => i !== index)
-    console.log(filteredTask)
-    this.setState({tasks: filteredTask})
+
+    this.setState({ tasks: filteredTask })
   }
 
-  // changeTask(index) {
-  //   const filteredTask = this.state.tasks.filter((task, i) => i === index)
+  modifyTask(index, description, status) {
+    const clonedTasks = [...this.state.tasks]
 
-  //   this.setState({tasks: filteredTask})
-  // }
+    clonedTasks[index].description = description
+    clonedTasks[index].status = status
+
+    this.setState({ tasks: clonedTasks })
+    console.log(clonedTasks)
+  }
 
   render() {
     return (
@@ -49,7 +66,7 @@ export class App extends Component {
             <List 
               tasks={this.state.tasks}
               deleteTask={this.deleteTask}
-              onChangeClick={this.changeTask}
+              modifyTask={this.modifyTask}
             />
       </div>
     )
