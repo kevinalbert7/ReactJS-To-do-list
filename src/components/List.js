@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import Task from './Task'
+import EditTaskForm from './EditTaskForm'
 
 export class List extends Component {
   constructor() {
@@ -16,10 +17,11 @@ export class List extends Component {
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this)
     this.handleStatusChange = this.handleStatusChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.reset = this.reset.bind(this)
   }
 
   setEditIndex(index) {
-    this.setState({ 
+    this.setState({
       editIndex: index,
       editDescription: this.props.tasks[index].description,
       editStatus: this.props.tasks[index].status
@@ -40,7 +42,10 @@ export class List extends Component {
     const { editIndex, editDescription, editStatus } = this.state
 
     this.props.modifyTask(editIndex, editDescription, editStatus)
+    this.reset()
+  }
 
+  reset() {
     this.setState({
       editIndex: null,
       editDescription: "",
@@ -49,7 +54,7 @@ export class List extends Component {
   }
 
   render() {
-    const { tasks, deleteTask, modifyTask } = this.props
+    const { tasks, deleteTask } = this.props
     const { editDescription } = this.state
 
     return (
@@ -67,32 +72,13 @@ export class List extends Component {
                   setEditIndex={this.setEditIndex}
                 />
               ) : (
-                <form className='row py-2' onSubmit={this.handleSubmit}>
-                  <div className='col-6 d-flex align-items-center'>
-                    <input 
-                      type='text' 
-                      value={editDescription} 
-                      onChange={this.handleDescriptionChange}
-                    />
-                  </div>
-
-                  <div className='col-2 d-flex align-items-center'>
-                    <select className='form-select' onChange={this.handleStatusChange}>
-                      {/* <option className='form-select'value={task.status}>{task.status}</option> */}
-                      <option className='bg-danger'value='To do'>To do</option>
-                      <option className='bg-warning'value='Doing'>Doing</option>
-                      <option className='bg-success'value='Done'>Done</option>
-                    </select>
-                  </div>
-
-                  <div className='col-2 d-flex align-items-center'>
-                    <button className='btn btn-outline-danger'>Annuler</button>
-                  </div>
-                  
-                  <div className='col-2 d-flex align-items-center'>
-                    <button type='submit' className='btn btn-outline-success'>Valider</button>
-                  </div>
-                </form>
+               <EditTaskForm 
+                  editDescription={editDescription}
+                  handleDescriptionChange={this.handleDescriptionChange}
+                  handleStatusChange={this.handleStatusChange}
+                  handleSubmit={this.handleSubmit}
+                  reset={this.reset}
+               />
               )}
             </li>
           })}

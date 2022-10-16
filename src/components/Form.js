@@ -27,7 +27,7 @@ export class Form extends Component {
 
     return (
             <form 
-                className='row'
+                className='row mb-5'
                 onSubmit={this.handleSubmit}    
             >
                 <div className='col-8'>

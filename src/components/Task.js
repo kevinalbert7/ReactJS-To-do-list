@@ -9,7 +9,6 @@ class Task extends Component {
                 <div className='col-6 d-flex align-items-center'>
                     <span>{task.description}</span>
                 </div>
-
                 <div className='col-2 d-flex align-items-center'>
                     <span>{task.status}</span>
                 </div>
@@ -22,7 +21,6 @@ class Task extends Component {
                         Modifier
                     </button>
                 </div>
-
                 <div className='col-2 d-flex align-items-center'>
                     <button 
                         className='btn btn-outline-danger'
