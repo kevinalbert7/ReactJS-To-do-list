@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import Task from './Task'
+
 export class List extends Component {
   constructor() {
     super()
@@ -57,66 +59,41 @@ export class List extends Component {
           {tasks.length === 0 && <p>No tasks yet</p>}
           {tasks.map((task, index )=> {
             return <li key={index} className='list-group-item'>
-              <div className='row py-2'>
-                {this.state.editIndex !== index ? (
-                  <>
-                    <div className='col-6 d-flex align-items-center'>
-                      <span>{task.description}</span>
-                    </div>
+              {this.state.editIndex !== index ? (
+                <Task 
+                  task={task} 
+                  index={index}
+                  deleteTask={deleteTask}
+                  setEditIndex={this.setEditIndex}
+                />
+              ) : (
+                <form className='row py-2' onSubmit={this.handleSubmit}>
+                  <div className='col-6 d-flex align-items-center'>
+                    <input 
+                      type='text' 
+                      value={editDescription} 
+                      onChange={this.handleDescriptionChange}
+                    />
+                  </div>
 
-                    <div className='col-2 d-flex align-items-center'>
-                      <span>{task.status}</span>
-                    </div>
+                  <div className='col-2 d-flex align-items-center'>
+                    <select className='form-select' onChange={this.handleStatusChange}>
+                      {/* <option className='form-select'value={task.status}>{task.status}</option> */}
+                      <option className='bg-danger'value='To do'>To do</option>
+                      <option className='bg-warning'value='Doing'>Doing</option>
+                      <option className='bg-success'value='Done'>Done</option>
+                    </select>
+                  </div>
 
-                    <div className='col-2 d-flex align-items-center'>
-                      <button 
-                        className='btn btn-outline-secondary'
-                        onClick={() => this.setEditIndex(index)}
-                      >
-                        Modifier
-                      </button>
-                    </div>
-
-                    <div className='col-2 d-flex align-items-center'>
-                      <button 
-                        className='btn btn-outline-danger'
-                        onClick={() => deleteTask(index)}
-                      >
-                        Supprimer
-                      </button>
-                    </div>
-                  </>
-                ) : (
-                  <form className='row py-2' onSubmit={this.handleSubmit}>
-
-                    <div className='col-6 d-flex align-items-center'>
-                      <input 
-                        type='text' 
-                        value={editDescription} 
-                        onChange={this.handleDescriptionChange}
-                      />
-                    </div>
-
-                    <div className='col-2 d-flex align-items-center'>
-                      <select className='form-select' onChange={this.handleStatusChange}>
-                        <option value={task.status}>{task.status}</option>
-                        <option value='To do'>To do</option>
-                        <option value='Doing'>Doing</option>
-                        <option value='Done'>Done</option>
-                      </select>
-                    </div>
-
-                    <div className='col-2 d-flex align-items-center'>
-                      <button className='btn btn-outline-danger'>Annuler</button>
-                    </div>
-                    
-                    <div className='col-2 d-flex align-items-center'>
-                      <button type='submit' className='btn btn-outline-success'>Valider</button>
-                    </div>
-
-                  </form>
-                )}
-              </div>
+                  <div className='col-2 d-flex align-items-center'>
+                    <button className='btn btn-outline-danger'>Annuler</button>
+                  </div>
+                  
+                  <div className='col-2 d-flex align-items-center'>
+                    <button type='submit' className='btn btn-outline-success'>Valider</button>
+                  </div>
+                </form>
+              )}
             </li>
           })}
         </ul>
